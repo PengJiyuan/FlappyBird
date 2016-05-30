@@ -4,6 +4,7 @@
 
 ----------
 截图：
+----------
 ![demo1][1]
 
 
@@ -19,7 +20,7 @@
 
   [1]: http://www.cat666.com/mydemo/FlappyBird/demo1.jpg
   [2]: http://www.cat666.com/mydemo/FlappyBird/demo2.jpg
-  [3]: http://www.cat666.com/mydemo/FlappyBird/index,html
+  [3]: http://www.cat666.com/mydemo/FlappyBird/index.html
   
 
 
