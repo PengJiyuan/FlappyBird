@@ -32,7 +32,7 @@ function Bird() {
 	this.isStop = function() {
 		if(this.top < 0) {
 			this.top = 10;
-		}else if(this.top > 550) {
+		}else if(this.top > 480) {
 		
 			gameMonitor.stop();
 			
@@ -46,7 +46,7 @@ function Bird() {
 	this.isCollision = function(pipeList) {
 		var _this = this;
 		//碰到上下边界,游戏结束
-		if(_this.top < 0 || this.top > 540) {
+		if(_this.top < 0 || this.top > 480) {
 		
 			gameMonitor.gameOver();
 			
@@ -76,13 +76,13 @@ function Pipe(id) {
 	this.left = gameMonitor.bgWidth;
 	this.top = 0;
 	this.width = 50;
-	this.height = getRandom(150,320);
+	this.height = getRandom(100,200);
 	this.pic_down = gameMonitor.im.createImage('images/pipe_down.png');
 	this.pic_up = gameMonitor.im.createImage('images/pipe_up.png');
 }
 Pipe.prototype.draw = function() {
 	ctx.drawImage(this.pic_down, this.left, this.top, this.width, this.height); //上管道       	
-	ctx.drawImage(this.pic_up, this.left, gameMonitor.gapHeight + this.height, this.width, 320);//下管道        	
+	ctx.drawImage(this.pic_up, this.left, gameMonitor.gapHeight + this.height, this.width, 280);//下管道        	
 }
 Pipe.prototype.move = function() {
 	this.left -= gameMonitor.SpeedX;
@@ -118,18 +118,14 @@ function ImageMonitor(){
 		}
 	}
 }
-function isMobile(){//判断是否是移动设备
+function isIphone(){//判断是否是移动设备
 	var sUserAgent= navigator.userAgent.toLowerCase(),
 	bIsIpad= sUserAgent.match(/ipad/i) == "ipad",
 	bIsIphoneOs= sUserAgent.match(/iphone os/i) == "iphone os",
 	bIsMidp= sUserAgent.match(/midp/i) == "midp",
 	bIsUc7= sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4",
-	bIsUc= sUserAgent.match(/ucweb/i) == "ucweb",
-	bIsAndroid= sUserAgent.match(/android/i) == "android",
-	bIsCE= sUserAgent.match(/windows ce/i) == "windows ce",
-	bIsWM= sUserAgent.match(/windows mobile/i) == "windows mobile",
-	bIsWebview = sUserAgent.match(/webview/i) == "webview";
-	return (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM);
+	bIsUc= sUserAgent.match(/ucweb/i) == "ucweb";
+	return (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc);
 }
 //时间绑定、解绑
 var EventUtil = {
@@ -170,7 +166,7 @@ function getEventPosition(ev){
 	
 var gameMonitor = {
 	bgWidth: 320,
-	bgHeight: 568,
+	bgHeight: 480,
 	gapHeight: 100,//上下管道之间的距离
 	gapPipe: 2500,//管道循环生成间隔 ms
 	SpeedX: 1.5,//管道左移速度
@@ -190,8 +186,7 @@ var gameMonitor = {
 	handler1: null,
 	handler2: null,
 	eventType: {
-		start : isMobile()? 'touchstart' : 'mousedown',
-		end : isMobile()? 'touchend' : 'mouseup'
+		start : isIphone() ? 'touchstart' : 'mousedown'
 	},
 	im: new ImageMonitor(),
 	getTime: function() {
@@ -212,10 +207,10 @@ var gameMonitor = {
 		}else {
 			bg.src = 'images/bg_night.png';
 		}
-		
 		setTimeout(function() {
 			_this.drawCover();	
 		},200);
+		
 		
 		//开始游戏按钮监听
 		_this.coverListener();		
@@ -365,6 +360,7 @@ var gameMonitor = {
 			gameMonitor.drawGameOver();
 			setTimeout(function() {
 				gameMonitor.drawBg();
+				ctx.drawImage(gameMonitor.im.createImage("images/title.png"), 80, 100, 178, 48);
 				gameMonitor.drawScorePanel();
 				gameMonitor.drawMedal();
 				gameMonitor.drawScore(_this.score,20,230,250,'#fff');
