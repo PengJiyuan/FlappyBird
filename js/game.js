@@ -119,7 +119,7 @@ function ImageMonitor(){
 		}
 	}
 }
-function isIphone(){//判断是否是移动设备
+/*function isIphone(){//判断是否是移动设备
 	var sUserAgent= navigator.userAgent.toLowerCase(),
 	bIsIpad= sUserAgent.match(/ipad/i) == "ipad",
 	bIsIphoneOs= sUserAgent.match(/iphone os/i) == "iphone os",
@@ -127,7 +127,17 @@ function isIphone(){//判断是否是移动设备
 	bIsUc7= sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4",
 	bIsUc= sUserAgent.match(/ucweb/i) == "ucweb";
 	return (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc);
-}
+}*/
+function IsPC() 
+{ 
+    var userAgentInfo = navigator.userAgent; 
+    var Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod", "Mobile"); 
+    var flag = true; 
+    for (var v = 0; v < Agents.length; v++) { 
+        if (userAgentInfo.indexOf(Agents[v]) > 0) { flag = false; break; } 
+    } 
+    return flag; 
+} 
 //时间绑定、解绑
 var EventUtil = {
 
@@ -155,7 +165,10 @@ var EventUtil = {
 //获取点击的坐标
 function getEventPosition(ev){
   var x, y;
-  if (ev.layerX || ev.layerX == 0) {
+  if(ev.touches) {
+	x = ev.touches[0].pageX;
+    y = ev.touches[0].pageY;
+  }else if (ev.layerX || ev.layerX == 0) {
     x = ev.layerX;
     y = ev.layerY;
   } else if (ev.offsetX || ev.offsetX == 0) { // Opera
@@ -191,7 +204,7 @@ var gameMonitor = {
 	s_point: null,//音效对象
 	s_hit: null,//音效对象
 	eventType: {
-		start : isIphone() ? 'touchstart' : 'mousedown'
+		start : IsPC() ? 'mousedown' : 'touchstart'
 	},
 	im: new ImageMonitor(),
 	getTime: function() {
@@ -216,9 +229,9 @@ var gameMonitor = {
 			_this.drawCover();	
 		},200);
 		
-		//初始化音效
 		_this.initSound();
-		
+		//初始化音效
+		//document.getElementsByClassName("author")[0].innerHTML = navigator.userAgent;
 		//开始游戏按钮监听
 		_this.coverListener();		
 		
@@ -322,7 +335,7 @@ var gameMonitor = {
 	},
 	//初始化音效
 	initSound: function() {
-		this.s_click = new Audio("sound/sfx_die.ogg");
+		this.s_click = new Audio("sound/sfx_point.ogg");
 		this.s_wing = new Audio("sound/sfx_wing.ogg");
 		this.s_point = new Audio("sound/sfx_point.ogg");
 		this.s_hit = new Audio("sound/sfx_hit.ogg");
