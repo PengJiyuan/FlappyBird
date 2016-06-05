@@ -61,6 +61,7 @@ function Bird() {
 							},0);	
 						}
 					}else if(p.left < (_this.left - p.width)) {
+						gameMonitor.s_point.play();//播放音效
 						gameMonitor.score += 1;
 						p.isPass = true;
 					}
@@ -185,6 +186,10 @@ var gameMonitor = {
 	bird: null,
 	handler1: null,
 	handler2: null,
+	s_die: null,//音效对象
+	s_wing: null,//音效对象
+	s_point: null,//音效对象
+	s_hit: null,//音效对象
 	eventType: {
 		start : isIphone() ? 'touchstart' : 'mousedown'
 	},
@@ -211,6 +216,8 @@ var gameMonitor = {
 			_this.drawCover();	
 		},200);
 		
+		//初始化音效
+		_this.initSound();
 		
 		//开始游戏按钮监听
 		_this.coverListener();		
@@ -229,6 +236,7 @@ var gameMonitor = {
 				_this.isControl = true;
 				_this.bird = new Bird();
 				
+				_this.s_click.play();//播放音效
 				_this.reset();
 				_this.run();
 				//循环生成管道
@@ -253,7 +261,8 @@ var gameMonitor = {
 
 				if(_this.isControl == true) {
 					if(_this.isPause == false) {
-					
+						
+						_this.s_click.play();
 						_this.isPause = true;
 						
 						setTimeout(function() {					
@@ -262,6 +271,7 @@ var gameMonitor = {
 						},1000/60);	
 						
 					}else {
+						_this.s_click.play();
 						_this.isPause = false;
 						gameMonitor.run();
 						gameMonitor.startPipe();
@@ -269,6 +279,7 @@ var gameMonitor = {
 				}
 				
 			}else {
+				_this.s_wing.play();//播放音效
 				_this.bird.reset();//清空上次点击事件
 				_this.bird.setPosition();//鸟进行位移
 				_this.bird.g = 1;//重置g	
@@ -308,6 +319,13 @@ var gameMonitor = {
 		},_this.intval);
 		//requestAnimationFrame(_this.run(ctx));	
 		
+	},
+	//初始化音效
+	initSound: function() {
+		this.s_click = new Audio("sound/sfx_die.ogg");
+		this.s_wing = new Audio("sound/sfx_wing.ogg");
+		this.s_point = new Audio("sound/sfx_point.ogg");
+		this.s_hit = new Audio("sound/sfx_hit.ogg");
 	},
 	//开始循环生成管道
 	startPipe: function() {
@@ -353,7 +371,7 @@ var gameMonitor = {
 		var _this = this;
 		_this.isControl = false;//游戏结束后不可以点击暂停或运行
 		//更新最高分
-	
+		_this.s_hit.play();//播放音效
 		setTimeout(function() {
 			
 			gameMonitor.stop();
