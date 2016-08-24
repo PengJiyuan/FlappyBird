@@ -13,6 +13,7 @@ function Bird() {
 	this.draw = function() {
 		ctx.drawImage(this.pic, this.left, this.top, this.width, this.height);
 	}
+	//鸟进行位移
 	this.setPosition = function() {
 		var _this = this;
 		
@@ -25,10 +26,12 @@ function Bird() {
 		},300);
 		
 	}
+	//模拟重力
 	this.gravity = function() {
 		this.g *= 1.06; 
 		this.top += this.g;
 	}
+	//是否停止位移
 	this.isStop = function() {
 		if(this.top < 0) {
 			this.top = 10;
@@ -38,6 +41,7 @@ function Bird() {
 			
 		}
 	}
+	//重置定时器
 	this.reset = function() {
 		clearInterval(this.timer);
 		clearTimeout(this.timer2);
@@ -61,6 +65,7 @@ function Bird() {
 							},0);	
 						}
 					}else if(p.left < (_this.left - p.width)) {
+						//Pass
 						gameMonitor.s_point.play();//播放音效
 						gameMonitor.score += 1;
 						p.isPass = true;
@@ -81,10 +86,13 @@ function Pipe(id) {
 	this.pic_down = gameMonitor.im.createImage('images/pipe_down.png');
 	this.pic_up = gameMonitor.im.createImage('images/pipe_up.png');
 }
+//利用随机数随机生成上管道高度，下管道与上管道距离固定
 Pipe.prototype.draw = function() {
 	ctx.drawImage(this.pic_down, this.left, this.top, this.width, this.height); //上管道       	
 	ctx.drawImage(this.pic_up, this.left, gameMonitor.gapHeight + this.height, this.width, 280);//下管道        	
 }
+//管道左移。我们的所有生成的管道放在数组pipeList中，为了优化性能，
+//判断每一个管道是否移出屏幕，移出的时候将其置为null,不再渲染
 Pipe.prototype.move = function() {
 	this.left -= gameMonitor.SpeedX;
 	if(this.left < -50) {
@@ -218,7 +226,7 @@ var gameMonitor = {
 		var bg = new Image();
 		_this.bg = bg;
 		bg.onload = function(){
-          	ctx.drawImage(bg, 0, 0, _this.bgWidth, _this.bgHeight);          	
+      ctx.drawImage(bg, 0, 0, _this.bgWidth, _this.bgHeight);          	
 		}
 		if(_this.getTime() < 19 && _this.getTime() > 6) {
 			bg.src = 'images/bg_day.png';	
@@ -231,7 +239,7 @@ var gameMonitor = {
 		
 		_this.initSound();
 		//初始化音效
-		//document.getElementsByClassName("author")[0].innerHTML = navigator.userAgent;
+
 		//开始游戏按钮监听
 		_this.coverListener();		
 		
@@ -330,7 +338,6 @@ var gameMonitor = {
 		_this.timer = setTimeout(function() {
 			_this.run();
 		},_this.intval);
-		//requestAnimationFrame(_this.run(ctx));	
 		
 	},
 	//初始化音效
