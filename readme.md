@@ -21,9 +21,9 @@
 [DEMO试玩][3]
 
 
-  [1]: http://www.cat666.com/mydemo/FlappyBird/demo1.jpg
-  [2]: http://www.cat666.com/mydemo/FlappyBird/demo2.jpg
-  [3]: http://www.cat666.com/mydemo/FlappyBird/index.html
+  [1]: http://demo.cat666.com/FlappyBird/demo1.jpg
+  [2]: http://demo.cat666.com/FlappyBird/demo2.jpg
+  [3]: http://demo.cat666.com/FlappyBird/index.html
   
 
 
