@@ -23,7 +23,7 @@
 
   [1]: http://demo.cat666.com/FlappyBird/demo1.jpg
   [2]: http://demo.cat666.com/FlappyBird/demo2.jpg
-  [3]: http://demo.cat666.com/FlappyBird/index.html
+  [3]: https://pengjiyuan.github.io/FlappyBird
   
 
 
