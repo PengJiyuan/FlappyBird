@@ -18,7 +18,7 @@
 [DEMO试玩][3]
 
 
-  [1]: ./readme-image/demo1.jpg
-  [2]: ./readme-image/demo2.jpg
+  [1]: ./readme-image/demo1.jpeg
+  [2]: ./readme-image/demo2.jpeg
   [3]: https://pengjiyuan.github.io/FlappyBird
   
