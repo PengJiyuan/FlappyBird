@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "rollup -c --environment min",
+    "build": "rollup -c"
   },
   "repository": {
     "type": "git",
@@ -19,5 +20,10 @@
   "bugs": {
     "url": "https://github.com/PengJiyuan/FlappyBird/issues"
   },
-  "homepage": "https://github.com/PengJiyuan/FlappyBird#readme"
+  "homepage": "https://github.com/PengJiyuan/FlappyBird#readme",
+  "devDependencies": {
+    "rollup": "^0.66.6",
+    "rollup-plugin-buble": "^0.19.4",
+    "rollup-plugin-butternut": "^0.1.0"
+  }
 }

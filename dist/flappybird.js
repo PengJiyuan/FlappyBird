@@ -1,0 +1,1 @@
+!function(a,b){typeof exports==='object'&&typeof module!=='undefined'?module.exports=b():typeof define==='function'&&define.amd?define(b):(a.FlappyBird=b())}(this,(function(){'use strict';var a=(function(){console.log('aaa')})();return a}))
