@@ -1,12 +1,12 @@
 ﻿var canvas = document.getElementById("main"),
 	ctx = main.getContext("2d");
-	
+
 function Bird() {
 	this.left = 120;
 	this.top = 250;
 	this.width = 34;
 	this.height = 24;
-	this.g = 1;
+	this.g = 1; // 重力
 	this.timer = null;
 	this.timer2 = null;
 	this.pic = gameMonitor.im.createImage('images/bird.png');
@@ -18,7 +18,7 @@ function Bird() {
 		var _this = this;
 		
 		this.timer = setInterval(function(){
-			_this.top -= 5;
+			_this.top -= 4;
 		},1000/60);
 		
 		this.timer2 = setTimeout(function() {
@@ -28,7 +28,7 @@ function Bird() {
 	}
 	//模拟重力
 	this.gravity = function() {
-		this.g *= 1.06; 
+		this.g *= 1.04;
 		this.top += this.g;
 	}
 	//是否停止位移
@@ -127,15 +127,7 @@ function ImageMonitor(){
 		}
 	}
 }
-/*function isIphone(){//判断是否是移动设备
-	var sUserAgent= navigator.userAgent.toLowerCase(),
-	bIsIpad= sUserAgent.match(/ipad/i) == "ipad",
-	bIsIphoneOs= sUserAgent.match(/iphone os/i) == "iphone os",
-	bIsMidp= sUserAgent.match(/midp/i) == "midp",
-	bIsUc7= sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4",
-	bIsUc= sUserAgent.match(/ucweb/i) == "ucweb";
-	return (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc);
-}*/
+
 function IsPC() 
 { 
     var userAgentInfo = navigator.userAgent; 
@@ -220,7 +212,23 @@ var gameMonitor = {
 		return myDate.getHours();
 	},//获取当前小时数，判断用白天还是黑夜背景
 	init: function() {
-		gameMonitor.im.loadImage(['images/bg_day.png','images/bg_night.png','images/button_pause.png','images/button_resume.png','images/bird.png', 'images/tutorial.png','images/button_play.png','images/title.png','images/text_ready.png','images/pipe_down.png','images/pipe_up.png','images/score_panel.png','images/text_game_over.png']);
+		gameMonitor.im.loadImage(
+			[
+				'images/bg_day.png',
+				'images/bg_night.png',
+				'images/button_pause.png',
+				'images/button_resume.png',
+				'images/bird.png',
+				'images/tutorial.png',
+				'images/button_play.png',
+				'images/title.png',
+				'images/text_ready.png',
+				'images/pipe_down.png',
+				'images/pipe_up.png',
+				'images/score_panel.png',
+				'images/text_game_over.png'
+			]
+		);
 		var _this = this;
 			
 		var bg = new Image();
