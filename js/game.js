@@ -1,4 +1,4 @@
-﻿var canvas = document.getElementById("main"),
+﻿var canvas = document.getElementById("canvas"),
 	ctx = main.getContext("2d");
 
 function Bird() {
@@ -54,7 +54,7 @@ function Bird() {
 		
 			gameMonitor.gameOver();
 			
-		}else {
+		} else {
 			for(var i = 0,l = pipeList.length; i < l; i++){
 				var p = pipeList[i];
 				if(p && p.isPass == false) {

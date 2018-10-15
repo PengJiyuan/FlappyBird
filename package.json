@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "rollup -c --environment min",
+    "dev": "rollup -c --environment dev -w",
     "build": "rollup -c"
   },
   "repository": {
