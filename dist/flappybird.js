@@ -73,7 +73,7 @@
   	medals_3: {x:130,y:0,w:44,h:44},
   	pipe_down: {x:52,y:236,w:52,h:320},
   	pipe_up: {x:0,y:236,w:52,h:320},
-  	score_panel: {x:231,y:110,w:238,h:126},
+  	score_panel: {x:231,y:108,w:238,h:126},
   	text_game_over: {x:48,y:48,w:204,h:54},
   	text_ready: {x:252,y:48,w:196,h:62},
   	title: {x:262,y:0,w:178,h:48},
@@ -230,8 +230,8 @@
   var Game = function Game() {
     this.canvas = document.getElementById("canvas");
     this.ctx = this.canvas.getContext("2d");
-    this.canvas.width = this.width = document.body.clientWidth;
-    this.canvas.height = this.height = document.body.clientHeight;
+    this.width = document.body.clientWidth;
+    this.height = document.body.clientHeight;
     this.gapHeight = 150; // 上下管道之间的距离
     this.gapPipe = 2500; // 管道循环生成间隔 ms
     this.SpeedX = 1.5; // 管道左移速度
@@ -256,6 +256,13 @@
     this.eventType = {
       start : isPC() ? 'mousedown' : 'touchstart'
     };
+
+    var ratio = window.devicePixelRatio || 1;
+    this.canvas.style.width = this.width + 'px';
+    this.canvas.style.height = this.height + 'px';
+    this.canvas.width = this.width * ratio;
+    this.canvas.height = this.height * ratio;
+    this.ctx.scale(ratio, ratio);
   };
 
   Game.prototype.init = function init () {

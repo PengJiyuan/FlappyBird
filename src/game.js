@@ -12,8 +12,8 @@ class Game {
   constructor() {
     this.canvas = document.getElementById("canvas");
     this.ctx = this.canvas.getContext("2d");
-    this.canvas.width = this.width = document.body.clientWidth;
-    this.canvas.height = this.height = document.body.clientHeight;
+    this.width = document.body.clientWidth;
+    this.height = document.body.clientHeight;
     this.gapHeight = 150; // 上下管道之间的距离
     this.gapPipe = 2500; // 管道循环生成间隔 ms
     this.SpeedX = 1.5; // 管道左移速度
@@ -38,6 +38,13 @@ class Game {
     this.eventType = {
       start : isPC() ? 'mousedown' : 'touchstart'
     };
+
+    const ratio = window.devicePixelRatio || 1;
+    this.canvas.style.width = this.width + 'px';
+    this.canvas.style.height = this.height + 'px';
+    this.canvas.width = this.width * ratio;
+    this.canvas.height = this.height * ratio;
+    this.ctx.scale(ratio, ratio);
   }
 
   init() {
