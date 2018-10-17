@@ -30,10 +30,11 @@ class Game {
     this.bird = null;
     this.handler1 = null;
     this.handler2 = null;
-    this.s_die = null; //死亡音效对象
-    this.s_wing = null; //飞翔音效对象
-    this.s_point = null; //得分音效对象
-    this.s_hit = null; //碰撞音效对象
+    this.s_click = null;
+    this.s_die = null; // 死亡音效对象
+    this.s_wing = null; // 飞翔音效对象
+    this.s_point = null; // 得分音效对象
+    this.s_hit = null; // 碰撞音效对象
     this.eventType = {
       start : isPC() ? 'mousedown' : 'touchstart'
     };
@@ -46,13 +47,21 @@ class Game {
       this.shape = new Shape(this.ctx, this.img);
       this.drawBg();
       this.drawCover();
-      //开始游戏按钮监听
-		  this.coverListener();
+      // 开始游戏按钮监听
+      this.coverListener();
+      
+      // 初始化音效
+		  this.initSound();
 		}
-
-    //初始化音效
-		// this.initSound();
   }
+
+  // 初始化音效
+	initSound() {
+		this.s_click = new Audio("sound/sfx_point.ogg");
+		this.s_wing = new Audio("sound/sfx_wing.ogg");
+		this.s_point = new Audio("sound/sfx_point.ogg");
+    this.s_hit = new Audio("sound/sfx_hit.ogg");
+	}
   
   getTime() {
 		return new Date().getHours();
@@ -91,7 +100,7 @@ class Game {
         this.drawBg();
         this.shape.draw('text_ready', (this.width - 178) / 2, this.height / 2 - 100, 204, 54);
         setTimeout(() => {
-          // this.s_click.play();//播放音效
+          this.s_click.play(); // 播放音效
           this.reset();
           this.run();
           //循环生成管道
@@ -169,7 +178,7 @@ class Game {
   
   gameOver() {
 		// 更新最高分
-		// _this.s_hit.play(); //播放音效
+		this.s_hit.play(); // 播放音效
     this.stop();
     setTimeout(() => {
       this.drawGameOver();
@@ -210,7 +219,7 @@ class Game {
 			const theEvent = window.event || e;
 			const p = getEventPosition(theEvent);
 			
-			// this.s_wing.play(); //播放音效
+			this.s_wing.play(); //播放音效
       this.bird.reset(); // 清空上次点击事件
       this.bird.setPosition(); //鸟进行位移
       this.bird.g = 1; //重置g
@@ -221,7 +230,6 @@ class Game {
   
   // 停止run方法的递归调用
 	stop() {
-    console.log(this.timer);
     setTimeout(() => {
       window.cancelAnimationFrame(this.timer);
       clearInterval(this.pipe_timer);

@@ -134,9 +134,9 @@
       this$1.top -= 5;
       if (this$1.rotate > -45) {
         if (this$1.rotate > 10) {
-          this$1.rotate -= 4.6;
+          this$1.rotate -= 5;
         } else {
-          this$1.rotate -= 2.6;
+          this$1.rotate -= 3;
         }
       }
   		}, 1000 / 60);
@@ -185,7 +185,7 @@
             }
           } else if (p.left < (this$1.left - p.width)) {
             // 通过
-            // this.gameIns.s_point.play(); //播放音效
+            this$1.gameIns.s_point.play(); //播放音效
             this$1.gameIns.score += 1;
             p.isPass = true;
           }
@@ -248,10 +248,11 @@
     this.bird = null;
     this.handler1 = null;
     this.handler2 = null;
-    this.s_die = null; //死亡音效对象
-    this.s_wing = null; //飞翔音效对象
-    this.s_point = null; //得分音效对象
-    this.s_hit = null; //碰撞音效对象
+    this.s_click = null;
+    this.s_die = null; // 死亡音效对象
+    this.s_wing = null; // 飞翔音效对象
+    this.s_point = null; // 得分音效对象
+    this.s_hit = null; // 碰撞音效对象
     this.eventType = {
       start : isPC() ? 'mousedown' : 'touchstart'
     };
@@ -266,13 +267,21 @@
       this$1.shape = new Shape(this$1.ctx, this$1.img);
       this$1.drawBg();
       this$1.drawCover();
-      //开始游戏按钮监听
-  		this$1.coverListener();
+      // 开始游戏按钮监听
+      this$1.coverListener();
+        
+      // 初始化音效
+  		this$1.initSound();
   		};
-
-    //初始化音效
-  		// this.initSound();
   };
+
+  // 初始化音效
+  	Game.prototype.initSound = function initSound () {
+  		this.s_click = new Audio("sound/sfx_point.ogg");
+  		this.s_wing = new Audio("sound/sfx_wing.ogg");
+  		this.s_point = new Audio("sound/sfx_point.ogg");
+    this.s_hit = new Audio("sound/sfx_hit.ogg");
+  	};
     
   Game.prototype.getTime = function getTime () {
   		return new Date().getHours();
@@ -313,7 +322,7 @@
         this$1.drawBg();
         this$1.shape.draw('text_ready', (this$1.width - 178) / 2, this$1.height / 2 - 100, 204, 54);
         setTimeout(function () {
-          // this.s_click.play();//播放音效
+          this$1.s_click.play(); // 播放音效
           this$1.reset();
           this$1.run();
           //循环生成管道
@@ -392,10 +401,10 @@
   };
     
   Game.prototype.gameOver = function gameOver () {
-      var this$1 = this;
+  		var this$1 = this;
 
   		// 更新最高分
-  		// _this.s_hit.play(); //播放音效
+  		this.s_hit.play(); // 播放音效
     this.stop();
     setTimeout(function () {
       this$1.drawGameOver();
@@ -440,7 +449,7 @@
   			var theEvent = window.event || e;
   			var p = getEventPosition(theEvent);
   			
-  			// this.s_wing.play(); //播放音效
+  			this$1.s_wing.play(); //播放音效
       this$1.bird.reset(); // 清空上次点击事件
       this$1.bird.setPosition(); //鸟进行位移
       this$1.bird.g = 1; //重置g
@@ -453,7 +462,6 @@
   	Game.prototype.stop = function stop () {
       var this$1 = this;
 
-    console.log(this.timer);
     setTimeout(function () {
       window.cancelAnimationFrame(this$1.timer);
       clearInterval(this$1.pipe_timer);

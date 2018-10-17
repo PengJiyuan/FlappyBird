@@ -29,9 +29,9 @@ class Bird {
       this.top -= 5;
       if (this.rotate > -45) {
         if (this.rotate > 10) {
-          this.rotate -= 4.6;
+          this.rotate -= 5;
         } else {
-          this.rotate -= 2.6;
+          this.rotate -= 3;
         }
       }
 		}, 1000 / 60);
@@ -78,7 +78,7 @@ class Bird {
             }
           } else if (p.left < (this.left - p.width)) {
             // 通过
-            // this.gameIns.s_point.play(); //播放音效
+            this.gameIns.s_point.play(); //播放音效
             this.gameIns.score += 1;
             p.isPass = true;
           }
