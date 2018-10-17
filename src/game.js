@@ -126,14 +126,14 @@ class Game {
 	//绘制奖牌
 	drawMedal() {
     // 判断游戏结束时给哪个奖牌
-		if(this.score > this.bestScore) {
+		if(this.score < 20) {
       this.shape.draw('medals_0', (this.width - 44) / 2 - 66, this.height / 2 - 54, 44, 44);
-		} else if (this.score > this.lastScore && this.score > 20) {
-      this.shape.draw('medals_1', (this.width - 44) / 2 - 66, this.height / 2 - 54, 44, 44);
-		} else if (this.score > 10) {
+		} else if (this.score < 50) {
+      this.shape.draw('medals_3', (this.width - 44) / 2 - 66, this.height / 2 - 54, 44, 44);
+		} else if (this.score < 100) {
       this.shape.draw('medals_2', (this.width - 44) / 2 - 66, this.height / 2 - 54, 44, 44);
 		} else {
-      this.shape.draw('medals_3', (this.width - 44) / 2 - 66, this.height / 2 - 54, 44, 44);
+      this.shape.draw('medals_1', (this.width - 44) / 2 - 66, this.height / 2 - 54, 44, 44);
 		}
 	}
 
