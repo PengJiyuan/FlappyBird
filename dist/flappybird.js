@@ -277,10 +277,10 @@
 
   // 初始化音效
   	Game.prototype.initSound = function initSound () {
-  		this.s_click = new Audio("sound/sfx_point.ogg");
-  		this.s_wing = new Audio("sound/sfx_wing.ogg");
-  		this.s_point = new Audio("sound/sfx_point.ogg");
-    this.s_hit = new Audio("sound/sfx_hit.ogg");
+  		this.s_click = new Audio("source/sfx_point.ogg");
+  		this.s_wing = new Audio("source/sfx_wing.ogg");
+  		this.s_point = new Audio("source/sfx_point.ogg");
+    this.s_hit = new Audio("source/sfx_hit.ogg");
   	};
     
   Game.prototype.getTime = function getTime () {
@@ -314,7 +314,8 @@
   				
   			if(p.x > this$1.btnX && p.x < this$1.btnX + 116 && p.y > this$1.btnY && p.y < this$1.btnY + 70) {
   				this$1.isControl = true;
-  				this$1.bird = new Bird(this$1);
+        this$1.bird = new Bird(this$1);
+        this$1.s_click.play(); // 播放音效
           
         removeEvent(this$1.canvas, this$1.eventType.start, this$1.handler2); //点击之后就移除该按钮点击
 
@@ -322,7 +323,6 @@
         this$1.drawBg();
         this$1.shape.draw('text_ready', (this$1.width - 178) / 2, this$1.height / 2 - 100, 204, 54);
         setTimeout(function () {
-          this$1.s_click.play(); // 播放音效
           this$1.reset();
           this$1.run();
           //循环生成管道
