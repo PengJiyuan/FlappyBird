@@ -1,3 +1,5 @@
+// 画雪碧图
+
 const images = {
 	bg_day: {x:0,y:748,w:288,h:512},
 	bg_night: {x:104,y:236,w:288,h:512},
@@ -12,7 +14,7 @@ const images = {
 	medals_3: {x:130,y:0,w:44,h:44},
 	pipe_down: {x:52,y:236,w:52,h:320},
 	pipe_up: {x:0,y:236,w:52,h:320},
-	score_panel: {x:230,y:110,w:238,h:126},
+	score_panel: {x:231,y:110,w:238,h:126},
 	text_game_over: {x:48,y:48,w:204,h:54},
 	text_ready: {x:252,y:48,w:196,h:62},
 	title: {x:262,y:0,w:178,h:48},
