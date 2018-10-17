@@ -9,18 +9,31 @@ class Bird {
     this.left = (gameIns.width - this.width) / 2;
     this.top = (gameIns.height - this.height) / 2 - 100;
     this.g = 1; // 重力
+    this.rotate = 0;
     this.timer = null;
     this.timer2 = null;
   }
 
   draw() {
+    this.gameIns.ctx.save();
+    this.gameIns.ctx.translate(this.left + this.width / 2, this.top + this.height / 2);
+    this.gameIns.ctx.rotate(this.rotate * Math.PI / 180);
+    this.gameIns.ctx.translate(-this.left - this.width / 2, -this.top - this.height / 2);
     this.shape.draw('bird', this.left, this.top, this.width, this.height);
+    this.gameIns.ctx.restore();
   }
 
-  //鸟进行位移
+  // 鸟进行位移
   setPosition() {
 		this.timer = setInterval(() => {
-			this.top -= 5;
+      this.top -= 5;
+      if (this.rotate > -45) {
+        if (this.rotate > 10) {
+          this.rotate -= 4.6;
+        } else {
+          this.rotate -= 2.6;
+        }
+      }
 		}, 1000 / 60);
 		
 		this.timer2 = setTimeout(() => {
@@ -32,14 +45,12 @@ class Bird {
   gravity() {
     this.g *= 1.05;
     this.top += this.g;
-  }
-
-  //是否停止位移
-  isStop() {
-    if(this.top < 0) {
-      this.top = 10;
-    } else if(this.top > 480) {
-      gameIns.stop();
+    if (this.rotate < 60) {
+      if (this.rotate < 10) {
+        this.rotate += 2;
+      } else {
+        this.rotate += 1.3;
+      }
     }
   }
 
